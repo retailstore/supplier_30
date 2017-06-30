@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<style>
+td{
+	display: flex;
+}
+
+@media (max-width: 699px) {
+	.flex-container {
+		-webkit-flex-direction: column;
+		flex-direction: column;
+	}
+	
+	.flex-item {
+		margin: 0 auto;
+		width: 100%
+	}
+}
+@media (min-width: 700px) {
+	.flex-item {
+		width: 50%;
+	}
+}
+
+@media (max-width: 320px) {
+	.btn-4{
+		width: 145px;
+	}
+}
+</style>
+
+</head>
+<body>
+<form id="content">
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&lt;</a>	
+		<center>
+			<div><input type="search" placeholder="Please enter Invoice#"></div>
+			<br>
+			<input id="rd1" type="radio" name="radio1" value="PGIN1006">PGIN1006<br><br>
+			<input id="rd2" type="radio" name="radio1" value="ULIN1504">ULIN1504<br><br>
+			<input id="rd3" type="radio" name="radio1" value="PGIN1404">PGIN1404<br><br>
+			<input id="rd4" type="radio" name="radio1" value="ITIN2903">ITIN2903<br><br>
+			<input id="rd5" type="radio" name="radio1" value="PGIN2803">PGIN2803<br><br>
+		</center>
+		<center>
+		<span><input type="button" value="Search" onclick="#" class="btn-5 btn-blue">
+		<input type="button" value="Check Status" onclick="getPOValue()" class="btn-5a"></span>
+		</center>
+	</div>
+
+	<div id="main">
+		<image src="../images/pglogo.png" id="logo"><br>
+		<label id="date">Date:- <label id="thetoday"></label></label>
+		
+		<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open">&gt; </span>	
+		<center><h2>Check Order Status</h2></center>
+		<br>
+		
+		<div class="flex-container">
+			<div class="flex-item">
+				<span id="tag">Invoice#</span>
+				<span><input class="value" id="iv" type="text" onload="getPOValue()" disabled></span>
+				<br><br>
+				<span id="tag">PO#</span>
+				<span><input class="value" id="po" type="text" onload="getPOValue()" disabled></span>
+			</div>
+			<div class="flex-item">
+				<span id="tag">Lot#</span>
+				<span><select class="dropdown" id="selectLot" name="lot" onchange="statusPO()">
+					<option>Select</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+				</select></span>
+				<br><br>
+				<span id="tag">Supplier ID</span>
+				<span><input class="value" type="text" disabled></span>
+			</div>
+		</div>
+		<br><br><br>	
+		<div id="displayDiv">
+			<center>
+				<p>Current Status of Lot#<label id="lot"></label> within PO#<br><label id="po1"></label></p>
+				<p>**PO has been created and is sent to Supplier for <br> processing**</p>
+			</center>
+			<br>
+			<input class="btn-4" type="button" onclick="audit()" value="Click for audit trail">
+		</div>
+		<br><br><br>
+		<center>
+			<table>
+				<tr>
+					<td><input onclick="view()" type="button" value="View Status for all Lots" class="btn-1 btn-blue">
+					<input type="button" onclick="back()" value="Back" class="btn-1 btn-blue"></td>
+				</tr>			
+			</table>	
+		</center>
+
+		<!--<center>		
+			<span><input onclick="view()" type="button" value="View Status for all Lots" class="btn-1">
+			<input type="button" onclick="back()" value="Back" class="btn-1"></span>
+		</center>-->
+	</div>
+</form>
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../js/script.js"></script>
+<script>
+	
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+	document.getElementById("open").style.visibility = "hidden";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+	document.getElementById("open").style.visibility = "visible";
+
+}
+function getPOValue(){
+	if(document.getElementById("rd1").checked)
+	{
+		document.getElementById("iv").value=document.getElementById("rd1").value;
+		document.getElementById("po").value="PGPO2605";
+	}
+	if(document.getElementById("rd2").checked)
+	{
+		document.getElementById("iv").value=document.getElementById("rd2").value;
+		document.getElementById("po").value="HULPO1504";
+	}
+	if(document.getElementById("rd3").checked)
+	{
+		document.getElementById("iv").value=document.getElementById("rd3").value;
+		document.getElementById("po").value="PGPO1404";
+	}
+	if(document.getElementById("rd4").checked)
+	{
+		document.getElementById("iv").value=document.getElementById("rd4").value;
+		document.getElementById("po").value="ITPO2903";
+	}
+	if(document.getElementById("rd5").checked)
+	{
+		document.getElementById("iv").value=document.getElementById("rd5").value;
+		document.getElementById("po").value="PGPO2803";
+	}
+}
+
+function statusPO(){
+	document.getElementById("lot").innerHTML=document.getElementById("selectLot").value;
+	document.getElementById("po1").innerHTML=document.getElementById("po").value;
+	document.getElementById("displayDiv").style.display="block";
+}
+
+function audit() {
+	window.location.href = "F_audit_trail.html"
+}
+
+function back() {
+	window.location.href = "B_Welcome.html"
+}
+
+function view() {
+	window.location.href = "G_purchase_order_status.html"
+}
+
+</script>
+     
+</body>
+</html> 
