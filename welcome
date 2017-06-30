@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	<style>
+		.radio {
+			margin-right:25px;
+		}
+
+
+		@media (max-width: 319px) {
+			.opt-container {
+				width: 50%;
+			}
+		}
+				
+
+		tr {
+			margin-bottom: 20px;
+		}
+
+		td {
+			display: flex;
+			padding-top: .5em;
+			padding-bottom: .5em;
+		}
+		
+		
+		
+	</style>
+</head>
+<body>
+	<form id="content">
+		<image src="../images/pglogo.png" id="logo"><br>
+		<label id="date">Date:- <label id="thetoday"></label></label>
+		<label id="detail"></label>
+		<center class="top-padding">
+			<h2>Welcome <span id="name">Ms. Kirti</span></h2>
+			<p class="instruction">Please select your option</p>
+			<div>
+				<span class="opt-container" onclick="window.location = 'C_CheckPurchaseOrderStatus.html';"><label class="opt-msg">Check Order Status</label></span>	
+			</div>
+			<br>
+			<div>
+				<span class="opt-container" onclick="window.location = 'D_CreateInvoice.html';"><label class="opt-msg">Create Invoice</label></span>
+			</div>
+			<br>	
+			<div>
+				<span class="opt-container" onclick="window.location = 'E_UpdatePurchaseOrderStatus.html';"><label class="opt-msg">Update Order Status</label></span>
+			</div>
+									
+			<br>
+				<input class="btn-1 btn-blue" onclick="back_login()" type="button" name="opt" value="Go back to Login Page"></td>
+		</center>	
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../js/script.js"></script>
+	<script>
+		$(".opt-container").hover(function(){
+			$(this).css({"box-shadow": "5px 5px 5px #888888"});
+			}, function(){
+			$(this).css({"background-color": "white", "box-shadow": "none"});
+		});
+		$(".opt-container").click(function(){
+			$(this).css("transform", "translateY(4px)")
+		})
+		
+		
+	</script>
+	
+</body>
+</html>
