@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Create invoice</title>
+	 	<style>
+			
+		 	@media (max-width: 684px) {
+				.flex-container {
+					-webkit-flex-direction: column;
+    				flex-direction: column;
+					margin: 0 auto;
+				}
+				
+				.flex-item {
+					margin: 0 auto;
+					width: 100%
+				}
+			}
+			
+			@media (min-width: 685px) {
+				.flex-item {
+					width: 100%;
+				}
+			} 	 
+			
+			th, td { 
+				border: 1px solid black; 
+				border-collapse: collapse; 
+				padding: 1px;
+			} 
+			
+			table {
+				width: 100%;
+			}
+			
+			table td input[type="text"] {
+				width: 96%;
+			}
+			
+			
+		</style> 
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+	</head> 
+  
+	<body> 
+		<div id="content"> 
+			<image src="../images/pglogo.png" id="logo"><br>
+			<center>
+			<h2>New Invoice</h2> 
+			</center>
+			<div class="flex-container"> 
+				<div class="flex-item">
+					<span id="tag">PO#</span>
+					<span><select class="dropdown">
+						<option>Select</option>
+						<option value="PGPO2605">PGPO2605</option>
+						<option value="HULPO1504">HULPO1504</option>
+					</select></span>
+					<br>
+					<br>
+					<span id="tag">Vendor#</span> 
+					<span><input class="value" type="text" disabled></span> 
+					<br>
+					<br>
+					<span id="tag">Invoice Date</span> 
+					<span><input class="value" type="date"></span>  
+				</div>	 
+				<div class="flex-item">
+					<span id="tag">Expected Delivery Date</span> 
+					<span><input class="value" type="date"></span>  
+					<br><br>
+					<span id="tag">Contract ID</span> 
+					<span><input  class="value" type="text" disabled></span> 
+				</div> 
+			</div>
+			<br>
+			<br>
+			<caption>Raw material Details</caption> 
+			<center> 
+			<div style="overflow:auto;"> 
+				<table class="raw-material"> 
+				<thead> 
+					<tr> 
+						<th></th>
+						<th>Item Identifier</th> 
+						<th>Contract ID</th> 
+						<th>Product</th> 
+						<th>Lot#</th> 
+						<th>Qty</th> 
+						<th>Unit Price($)</th> 
+						<th>Tax Rate</th> 
+						<th>Tax</th> 
+						<th>Price($)</th> 
+					</tr> 
+				</thead>
+				<tbody>		
+					<tr> 	
+						<td name="select"><input value="1" type="checkbox" name="record"></td>
+						<td><input class="item" type="text"></td> 
+						<td class="n-edit"><input class="item" type="text" disabled></td> 
+						<td class="n-edit"><input class="item" type="text" disabled></td> 
+						<td><input class="lot" type="text"></td> 
+						<td><input id="qty" class="qty change" type="text"></td> 
+						<td><input id="u_price" class="u_price change" type="text"></td> 
+						<td><input id="tax_rate" class="tax_rate change" type="text"></td> 
+						<td class="n-edit"><input class="item" type="text" disabled></td> 
+						<td class="n-edit"><input class="item" type="text" disabled></td> 
+					</tr>
+				</tbody>
+				</table>
+				<br>
+			</div> 
+
+			<div> 
+				<div class="flex-container"> 
+					<div class="flex-item"> 
+						<div> 
+							<button class="add-row btn-2">Add Item</button> 	
+							<button class="delete-row btn-2">Delete Item</button> 
+						</div> 
+					</div> 
+					<div class="flex-item">
+						<div>
+							<span id="tag">Subtotal($)</span> 
+							<span class="value subtotal" style="margin:2px;">0.00</span> 
+						</div>
+						<div>
+							<span id="tag">Tax($)</span> 
+							<span class="value tax_amount" style="margin:2px;">0.00</span> 
+						</div>
+						<div>
+							<span id="tag">Total($)</span> 
+							<span class="value total" style="margin:2px;">0.00</span> 
+						</div>
+					</div> 
+				</div> 
+				<div> 
+					<button id="create" class="btn-1 btn-blue">Create</button> 
+					<button id="cancel" class="btn-1 btn-blue">Cancel</button> 
+				</div> 
+			</div> 
+			</center> 
+			
+			<div class="success-box" style="display:none;">
+				<a id="close" href="#" style="float: right;">[x]</a>
+				<center>
+					Invoice created successfully!! 
+					<br>
+					<br>
+					<span id="display" class="message value"></span>
+				</center>		
+			</div> 
+		</div> 
+	</body> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+
+		$(document).ready(function(){
+	        $(".add-row").click(function(){
+	            var data = '<tr><td name="select"><input value="1" type="checkbox" name="record"></td><td><input class="item" type="text"></td><td class="n-edit"><input class="item" type="text" disabled></td><td class="n-edit"><input class="item" type="text" disabled></td><td><input class="lot" type="text"></td><td><input id="qty" class="qty change" type="text"></td><td><input id="u_price" class="u_price change" type="text"></td><td><input id="tax_rate" class="tax_rate change" type="text"></td><td class="n-edit"><input class="item" type="text" disabled></td><td class="n-edit"><input class="item" type="text" disabled></td></tr>';
+	            $("table tbody").append(data);
+		    });
+		        
+	        // Find and remove selected table rows
+	        $(".delete-row").click(function(){
+	            $(".raw-material tbody").find('input[name="record"]').each(function(){
+	            	if($(this).is(":checked")){
+	                    $(this).parents("tr").remove();
+	                }
+					
+	            });
+				
+				price_list = document.getElementsByClassName("price");
+				tax_list = document.getElementsByClassName("tax");
+				var total = 0;
+				var tax = 0;
+				for(var i=0; i<price_list.length; i++) {
+					total += Number(price_list[i].value);
+					tax += Number(tax_list[i].value);
+				}
+				subtotal = total-tax
+				$(".total").text(total.toFixed(2));
+				$(".tax_amount").text(tax.toFixed(2));
+				$(".subtotal").text(subtotal.toFixed(2));
+	        });
+			
+			$("#create").click(function() {
+				$(".message").html("PGIN1234");
+				$(".success-box").toggle();
+			});
+			
+			$("#close").click(function() {
+				$(".success-box").hide();
+			});
+			
+			$("#cancel").click(function() {
+				window.location.href = "B_Welcome.html"
+			});
+			
+			$(".change").keyup(function(){
+				qty_ele = $(this).parent().siblings().children(".qty").val();
+				unit_price_ele = $(this).parent().siblings().children(".u_price").val();
+				tax_rate_ele = $(this).parent().siblings().children(".tax_rate").val();
+				
+				qty = parseFloat(qty_ele) || 0;
+				unit_price = parseInt(unit_price_ele, 10) || 0 ;
+				tax_rate = parseInt(tax_rate_ele, 10) || 0;
+				
+				var tax = Number(qty*unit_price*(tax_rate/100))
+				var total = Number(qty*unit_price*(1+(tax_rate/100)))
+				$(this).parent().siblings().children(".price").val(total.toFixed(2));
+				$(this).parent().siblings().children(".tax").val(tax.toFixed(2));
+				
+				price_list = document.getElementsByClassName("price");
+				tax_list = document.getElementsByClassName("tax");
+				var total = 0;
+				var tax = 0;
+				for(var i=0; i<price_list.length; i++) {
+					total += Number(price_list[i].value);
+					tax += Number(tax_list[i].value);
+				}
+				subtotal = total-tax
+				$(".total").text(total.toFixed(2));
+				$(".tax_amount").text(tax.toFixed(2));
+				$(".subtotal").text(subtotal.toFixed(2));
+				
+			})
+	    });
+		
+
+
+	</script>
+</html>
