@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Purchase Order Status</title>
+		<style>
+			table, th, td {
+				border: 1px solid black; 
+		 		border-collapse: collapse; 
+			}
+			
+			.status {
+				width: 95%;
+			}
+			
+			
+			@media (max-width: 540px) {
+				.flex-container {
+					-webkit-flex-direction: column;
+    				flex-direction: column;
+				}
+			}
+			
+			.flex-item {
+				width: 50%;
+			}
+
+		</style>
+
+	<link rel="stylesheet" type="text/css" href="../css/style.css">	
+	</head>
+	<body>
+		<div id="content"> 
+			<image src="../images/pglogo.png" id="logo"><br>
+			<label id="date">Date:- <label id="thetoday"></label></label>
+			<center><h2>Purchase Order</h2></center> <br><br>
+			<div class="flex-container"> 
+				<div class="flex-item">			
+					<span id="tag">PO#</span>
+					<span class="value">PGPO2605</span> 
+				</div>
+				
+				<div class="flex-item">
+					<span id="tag">Contract ID</span> 
+					<span class="value">PGCI2605</span> 
+				</div>
+			</div>
+			<br>
+			<div class="flex-container"> 						 
+				<div class="flex-item">
+					<span id="tag">Vendor</span> 
+					<span class="value">PGPO2605</span> 
+				</div>
+				<br>
+				<div class="flex-item">		
+					<span id="tag">Order Date</span> 
+					<span><input class="value" type="date"></span> 		
+				</div> 
+			</div>
+			<br>
+			<br>
+			<caption>Lot Status</caption> 
+			<center> 
+			<div style="overflow:auto;"> 
+				<table class="status"> 
+					
+					<tr> 
+						<th>PO#</th> 
+						<th>Contract ID</th> 
+						<th>Lot#</th> 
+						<th>Current Status</th> 
+						<th>Update Status</th> 
+						<th>Audit Trail</th> 
+					</tr> 
+					
+					<tr> 	
+						<td>PGPO2605</td>
+						<td style="background-color:#b3ccff;">PGCI2605</td> 
+						<td>1</td> 
+						<td>Waiting for testing in SGS Lab</td> 
+						<td><a href="#">Update</a></td> 
+						<td><a href="#">Click Here</a></td> 
+					</tr> 
+					
+					<tr> 	
+						<td>PGPO2605</td>
+						<td style="background-color:#b3ccff;">PGCI2605</td> 
+						<td>2</td> 
+						<td>Test passed in SGS Lab</td> 
+						<td><a href="#">Update</a></td> 
+						<td><a href="#">Click Here</a></td> 
+					</tr> 
+				</table> 
+			</div> 
+			<br><br>
+			<button class="btn-1 btn-blue" onclick="back()">Back</button>
+			</center> 
+			
+		</div> 
+	</body>
+	<script src="../js/script.js"></script>
+	<script>		
+		function back() {
+			window.location.href = "C_CheckPurchaseOrderStatus.html"
+		}
+	</script>
+</html>
